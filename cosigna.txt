@@ -1,0 +1,81 @@
+Front
+* Gestión de Productos (Ok)
+  La API deberá ofrecer endpoints que permitan:
+    - Listar productos disponibles.
+    - Obtener detalles individuales de un producto.
+    - Agregar nuevos productos al catálogo.
+    - Actualizar información de productos existentes.
+    - Eliminar productos.
+
+* Cada producto deberá tener atributos como: (OK)
+  - ID
+  - Nombre
+  - Descripción
+  - Precio
+  - Categoría
+  - Imagen (URL)
+  - Stock
+
+* Búsqueda y actualización de productos (OK)
+  - El sistema permitirá buscar un producto por su nombre o ID.
+  - Si se encuentra el producto, se mostrará su información completa.
+  - Opcionalmente, se podrá actualizar alguno de sus datos (precio o stock), validando que los valores sean coherentes (por ejemplo, que el stock no sea negativo).
+
+* Eliminación de productos (OK)
+  - El sistema debe permitir eliminar un producto de la lista, identificándolo por su ID o posición en la colección.
+  - Antes de eliminar, el sistema podría pedir confirmación (opcionales).
+
+* Creación de pedidos (NOP)
+  - Además de manejar productos, se sugiere agregar la clase Pedido (o Orden) que contenga:
+    - Una lista de productos asociados.
+    - Cantidad deseada de cada producto (por ejemplo, usando un objeto intermedio LineaPedido o similar).
+  - El sistema debe permitir crear un pedido nuevo:
+    - Solicitar al usuario qué productos desea y en qué cantidad (validar que haya suficiente stock).
+    - Calcular el costo total (sumando precio * cantidad de cada producto).
+    - Disminuir el stock de cada producto si el pedido se confirma.
+ 
+* Menú principal interactivo
+  - El HTML tendrá una opción que permitirá
+    - Crear y registrar nuevos pedidos.
+    - Historial de pedidos por usuario.
+    - Gestión del estado de pedidos (pendiente, confirmado, enviado, entregado, cancelado).
+    - Actualización automática de stock al confirmar pedido, Alertas o reportes cuando el stock alcance niveles mínimos.
+    - Crear un pedido
+    - Listar pedidos
+
+Back
+* Tipos de datos y variables (OK)
+  - Emplear variables de tipo int (para cantidades e IDs), double (para precios), String (para nombres/descripciones),
+    y boolean si fuera necesario.
+  - Asegurate de usar operadores aritméticos, lógicos y relacionales en las funciones de cálculo y validación.
+
+* Colecciones (Arrays, Listas) (OK)
+  - Para manejar los productos, se sugiere un ArrayList<Producto>.
+    Para manejar los productos dentro de un pedido, podría usarse otra lista, por ejemplo ArrayList<LineaPedido>.
+    O bien, un Map<Integer, Integer> si querés asociar ID de producto con cantidad solicitada (detalles a tu elección).
+
+* POO y Colaboración de Clases (OK)
+  - Clase Producto: con atributos id, nombre, precio, stock, getters y setters.
+  - Clase Pedido (u Orden): con atributos id, lista de productos/lineas, metodos para calcular total, etc.
+  - Clase Principal (Main): orquesta el menú, invoca métodos de servicios (por ejemplo, un ProductoService que
+    encapsule la lógica de agregar/buscar/eliminar).
+
+* Herencia/Polimorfismo (opcional para extender) (paso, no me aporta nada y puede agregar complejidad innecesaria)
+  - Si deseás, podés crear subclases de Producto (por ejemplo, Bebida, Comida) con atributos específicos (fecha de
+    vencimiento, volumen en litros, etc.).
+  - Mostrar cómo el polimorfismo ayuda a tratar distintos productos de forma genérica.
+
+* Excepciones (NOP, OK)
+  - Manejar errores con try/catch. Por ejemplo, al convertir datos ingresados por la usuaria o usuario, podrías atrapar
+    NumberFormatException si ingresa texto en lugar de un número.
+  - Podrías crear una excepción personalizada como StockInsuficienteException y lanzarla cuando se intenta crear un pedido
+    con cantidad mayor al stock disponible.
+
+* Paquetes/módulos (organización de código) (casi, faltaria lo de los modulos, pero no se si mi proyecto necesita eso)
+  - Dividir las clases en paquetes lógicos:
+    com.techlab.productos (para Producto, Bebida, etc.)
+    com.techlab.pedidos (para Pedido, LineaPedido)
+    com.techlab.excepciones (para excepciones personalizadas)
+
+** Ejemplo de flujo de uso (escenario)
+

@@ -1,0 +1,24 @@
+.notification {
+  --bd-cosa: 150%;
+
+  width: 100%;
+  z-index: 3;
+  margin: 0.25rem 0;
+
+  transform: translateX(var(--bd-cosa));
+  transition: transform 0.125s ease-in-out;
+}
+
+.notification.entering {
+  transform: translateX(0);
+}
+
+.notification.exiting {
+  transform: translateX(var(--bd-cosa));
+}
+
+.notification .toast {
+  width: 22rem;
+  margin: 0;
+  margin-left: calc(100% - 22rem);
+}

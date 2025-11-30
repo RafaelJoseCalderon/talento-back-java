@@ -1,0 +1,14 @@
+@hostname = localhost
+@port = 8080
+@host = http://{{hostname}}:{{port}}
+
+##############################################################
+# @no-cookie-jar
+# @no-redirect
+PUT /api/users/login HTTP/1.1
+Content-Type: application/json
+
+  {
+    "username": "Bonifacio",
+    "password": "123"
+  }

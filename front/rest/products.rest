@@ -1,0 +1,63 @@
+@hostname = localhost
+@port = 8080
+@host = http://{{hostname}}:{{port}}
+
+##############################################################
+# @no-cookie-jar
+# @no-redirect
+GET /api/products/all HTTP/1.1
+
+##############################################################
+# @no-cookie-jar
+# @no-redirect
+GET /api/products/1 HTTP/1.1
+
+##############################################################
+# @no-cookie-jar
+# @no-redirect
+
+GET /api/products/all?query=Mjöl HTTP/1.1
+
+##############################################################
+# @no-cookie-jar
+# @no-redirect
+POST /api/products/create HTTP/1.1
+Content-Type: application/json
+
+  {
+    "title": "Mjölnir",
+    "price": -5,
+    "stock": -5,
+    "image": "",
+    "rating": {
+      "rate": 10.0,
+      "count": 10
+    },
+    "description": "Martillo multiproposito",
+    "categoryId": 2
+  }
+
+##############################################################
+# @no-cookie-jar
+# @no-redirect
+PUT /api/products/update/21 HTTP/1.1
+Content-Type: application/json
+
+  {
+    "title": "Mjölnir",
+    "price": 1,
+    "stock": 5,
+    "image": "",
+    "rating": {
+      "rate": 20.0,
+      "count": 10
+    },
+    "description": "Mendigo martillo inamovible",
+    "categoryId": 1
+  }
+
+##############################################################
+# @no-cookie-jar
+# @no-redirect
+DELETE /api/products/delete/21 HTTP/1.1
+Content-Type: application/json

@@ -1,0 +1,8 @@
+@hostname = localhost
+@port = 8080
+@host = http://{{hostname}}:{{port}}
+
+##############################################################
+# @no-cookie-jar
+# @no-redirect
+GET /api/categories/all HTTP/1.1
