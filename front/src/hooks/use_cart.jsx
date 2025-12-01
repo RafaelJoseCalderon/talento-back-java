@@ -1,39 +1,37 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { CartContext } from "../context/cart_context";
-import { useAuth } from "./use_auth";
-import { getCartState } from "../services/shoping_cart";
 
 export const useCart = () => {
-  const { cartState, setCartState } = useContext(CartContext);
-  const { user, isUser } = useAuth();
+  const { items, setItems } = useContext(CartContext);
 
-  const setCart = (data) => {
-    const quantity = data?.cart?.quantity;
-    if (quantity != null) setCartState(quantity);
+  const addItem = (product, quantity) => {
+    setItems((prev) => {
+      if (prev.some((item) => item.id === product.id)) {
+        return prev;
+      } else {
+        const cents = Math.round(product.price * 100);
+        return [...prev, { ...product, price: cents, quantity }];
+      }
+    });
   };
 
-  useEffect(() => {
-    let isMounted = true;
+  const delItem = (id) => {
+    setItems((prev) => prev.filter((item) => item.id !== id));
+  };
 
-    const setState = (data) => {
-      if (isMounted && data?.quantity) {
-        setCartState(data?.quantity ?? 0);
-      }
-    }
+  const delAll = () => {
+    setItems([]);
+  };
 
-    if (isUser && user?.id) {
-      getCartState(user.id)
-        .then((data) => { setState(data); })
-        .catch(() => { setState(0); });
-    } else {
-      setCartState(0);
-    }
-
-    return () => { isMounted = false };
-  }, [user]);
+  const exist = (id) => {
+    return items.some(p => p.id === id);
+  };
 
   return {
-    setCart,
-    size: cartState
+    items,
+    addItem,
+    delItem,
+    delAll,
+    exist
   };
 };

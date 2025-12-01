@@ -26,9 +26,8 @@ import Overlay from "./components/overlay";
 
 // services
 import { login } from "./services/users";
-import { getHistory, getOrder } from "./services/orders";
+import * as orders from "./services/orders";
 import * as product from "./services/product";
-import * as shoping from "./services/shoping_cart";
 
 export const routes = [{
   path: "/",
@@ -40,12 +39,10 @@ export const routes = [{
       index: true,
       element: <Products title="Productos" />,
       loader: product.getBy,
-      action: shoping.actionsCart,
     }, {
       path: "product/:id",
       element: <Product />,
       loader: product.getById,
-      action: shoping.actionsCart,
     }, {
       path: "about",
       element: <About />,
@@ -71,16 +68,15 @@ export const routes = [{
         index: true,
         element: <ShopingCart />,
         errorElement: <ErrorPage />,
-        loader: shoping.getCart,
-        action: shoping.actionsCart,
+        action: orders.buy,
       }, {
         path: "history",
         element: <History />,
-        loader: getHistory,
+        loader: orders.getHistory,
       }, {
         path: "details/:id",
         element: <OrderDetail />,
-        loader: getOrder,
+        loader: orders.getOrder,
       }],
     }, {
       path: "admin",

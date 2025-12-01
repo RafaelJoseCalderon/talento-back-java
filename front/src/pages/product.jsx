@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router";
-import { useAsyncSubmit } from "../hooks/use_async_submit";
-import { useCart } from "../hooks/use_cart";
+import { useAddToCart } from "../hooks/use_add_to_cart";
 
 import { Container, Row, Col, Button, Badge } from "react-bootstrap";
 import SafeImage from "../components/safe_image";
@@ -10,15 +9,11 @@ import QuantitySelector from "../components/quantity_selector";
 const Product = () => {
   const [quantity, setQuantity] = useState(1);
   const product = useLoaderData();
-  const { submit } = useAsyncSubmit();
-  const { setCart } = useCart();
+  const { addItem } = useAddToCart();
 
   const add = () => {
     if (quantity < product.stock) {
-      submit(
-        { productId: product.id, quantity, action: "add" },
-        { method: 'post', encType: 'application/json' }
-      ).then(r => setCart(r));
+      addItem(product, quantity);
       setQuantity(1);
     } else {
       info("No hay stock suficiente");

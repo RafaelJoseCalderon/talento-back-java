@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router";
-import { useAsyncSubmit } from "../hooks/use_async_submit";
-import { useCart } from "../hooks/use_cart";
+import { useAddToCart } from "../hooks/use_add_to_cart";
 
 import { Col, Card, Row } from "react-bootstrap";
 import ProductActions from "./product_actions";
@@ -8,16 +7,8 @@ import SafeImage from "./safe_image";
 import NotItems from "./not_items";
 
 const ProductsList = ({ products }) => {
-  const { submit } = useAsyncSubmit();
-  const { setCart } = useCart();
+  const { addItem } = useAddToCart();
   const navigate = useNavigate();
-
-  const addItem = (product, quantity) => {
-    submit(
-      { productId: product.id, quantity, action: "add" },
-      { method: 'post', encType: 'application/json' }
-    ).then(r => { setCart(r) });
-  }
 
   const moreDetails = (product) => {
     navigate(`/product/${product.id}`);

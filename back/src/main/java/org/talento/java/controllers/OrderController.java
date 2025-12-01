@@ -1,9 +1,10 @@
 package org.talento.java.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
-import org.talento.java.dtos.orders.OrderCartRes;
+import org.talento.java.dtos.orders.OrderItemReq;
 import org.talento.java.dtos.orders.OrderListRes;
 import org.talento.java.dtos.orders.OrderRes;
 import org.talento.java.services.OrderService;
@@ -38,10 +39,11 @@ public class OrderController {
     }
 
     @PostMapping(value = "complete-sale/{userId}")
-    public ResponseEntity<OrderCartRes> completeSale(
-        @PathVariable Long userId
+    public ResponseEntity<OrderRes> completeSale(
+        @PathVariable Long userId,
+        @RequestBody @Valid List<OrderItemReq> items
     ) {
-        var response = this.orderService.completeSale(userId);
+        var response = this.orderService.completeSale(userId, items);
         return ResponseEntity.ok(response);
     }
 

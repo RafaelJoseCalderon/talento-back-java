@@ -1,8 +1,8 @@
 import { Card, Button } from "react-bootstrap";
 
 const SummaryCart = ({ items, buy }) => {
-  const summation = items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
-  const total = summation.toFixed(2);
+  const summation = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const total = (summation / 100).toFixed(2);
 
   return (
     <Card className="summary-cart">

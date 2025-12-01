@@ -1,11 +1,11 @@
 import { CartContext } from "./cart_context";
-import { useState } from "react";
+import { usePersistentState } from "../hooks/use_persistent";
 
 const CartProvider = ({ children }) => {
-  const [cartState, setCartState] = useState(0);
+  const [items, setItems] = usePersistentState("cart-items", []);
 
   return (
-    <CartContext.Provider value={{ cartState, setCartState }}>
+    <CartContext.Provider value={{ items, setItems }}>
       {children}
     </CartContext.Provider>
   );

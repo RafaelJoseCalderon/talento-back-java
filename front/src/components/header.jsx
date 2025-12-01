@@ -8,7 +8,7 @@ import { NotificationContainer } from "../utils/notification";
 
 const Header = () => {
   const { isAuth, isAdmin } = useAuth();
-  const { size } = useCart();
+  const { items } = useCart();
 
   const location = useLocation();
   const [expanded, setExpanded] = useState(false);
@@ -29,7 +29,7 @@ const Header = () => {
               <Nav.Link as={Link} to="/cart" className="button-cart">
                 <div className="icons">
                   <i className="bi bi-cart"></i>
-                  <Badge>{size}</Badge>
+                  <Badge>{items?.length ?? 0}</Badge>
                 </div>
               </Nav.Link>
             }

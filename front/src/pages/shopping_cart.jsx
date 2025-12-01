@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useLoaderData } from "react-router";
 import { useAsyncSubmit } from "../hooks/use_async_submit";
 import { useCart } from "../hooks/use_cart";
 
@@ -13,24 +12,18 @@ import Dialog from "../utils/dialog";
 
 const ShopingCart = () => {
   const [show, setShow] = useState(false);
-  const { items } = useLoaderData();
+  const { items, delItem, delAll } = useCart();
   const { submit } = useAsyncSubmit();
-  const { setCart } = useCart();
-
-  const delItem = (id) => {
-    submit(
-      { id, action: "delete" },
-      { method: "delete", encType: "application/json" }
-    ).then(r => setCart(r));
-  }
 
   const buy = () => {
     submit(
-      {action: "buy"},
+      items,
       { method: "post", encType: "application/json" }
-    ).then(r => {
-      setCart(r)
-      setTimeout(() => { setShow(true); }, 500);
+    ).then(response => {
+      if (response) {
+        delAll();
+        setTimeout(() => { setShow(true); }, 500);
+      }
     });
   };
 
